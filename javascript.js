@@ -8,20 +8,18 @@ function getComputerChoice() {
 let computerSelection = getComputerChoice();
 
 function playRound(computerSelection, playerSelection) {
-  let result;
-    if (computerSelection == "rock") {
-        if (playerSelection == "rock") {
-            result = 0
-        } else if (playerSelection == "paper") {
-            result = 1
+    let result;
+    if (computerSelection == playerSelection) {
+        result = 0;
+    } else if (computerSelection == "rock") {
+        if (playerSelection == "paper") {
+            result = 1;
         } else if (playerSelection == "scissors") {
-            result = -1
+            result = -1;
         }
     } else if (computerSelection == "paper") {
         if (playerSelection == "rock") {
             result = -1;
-        } else if (playerSelection == "paper") {
-            result = 0;
         } else if (playerSelection == "scissors") {
             result = 1;
         }
@@ -30,34 +28,36 @@ function playRound(computerSelection, playerSelection) {
             result = 1;
         } else if (playerSelection == "paper") {
             result = -1;
-        } else if (playerSelection == "scissors") {
-            result = 0;
         }
     }
     return result;
-}
+  }
 
+function game() {
+    let playerPoints = 0;
+    let computerPoints = 0;
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("Choose Rock, Paper or Scissors").toLowerCase();
+        computerSelection = getComputerChoice();
+        console.log(`Round ${i + 1}`)
+        console.log(`Computer choses ${computerSelection}`);
+        let result = playRound(computerSelection, playerSelection);
+        if (result > 0) {
+            ++playerPoints;
+            console.log(`Computer has ${computerPoints} points. Player has ${playerPoints}`);
+        } else if (result < 0) {
+            ++computerPoints;
+            console.log(`Computer has ${computerPoints} points. Player has ${playerPoints}`);
+        } else {
+            console.log("It's a tie. Play again")
+        }
+    }
 
-let playerPoints = 0;
-let computerPoints = 0;
-for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Choose Rock, Paper or Scissors").toLowerCase();
-    computerSelection = getComputerChoice();
-    console.log(`Computer choses ${computerSelection}`);
-    let result = playRound(computerSelection, playerSelection);
-    if (result > 0) {
-        ++playerPoints;
-        console.log(`Player wins. Computer has ${computerPoints} points. Player has ${playerPoints}`);
-    } else if (result < 0) {
-        ++computerPoints;
-        console.log(`Computer wins. Computer has ${computerPoints} points. Player has ${playerPoints}`);
+    if (computerPoints > playerPoints) {
+        console.log("**Computer wins**");
     } else {
-        console.log("It's a tie. Play again")
+        console.log("**Player wins**");
     }
 }
 
-if (computerPoints > playerPoints) {
-    console.log("Computer wins");
-} else {
-    console.log("Player wins");
-}
+game()
