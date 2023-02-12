@@ -19,26 +19,19 @@ const playerRock = document.querySelector("#rock");
 playerRock.addEventListener("click", () => {
     playerSelection = "rock";
     game = playRound(playerSelection);
-    // console.log(game.playerPoints);
-    // console.log(game);
     addDiv();
-    return game;
 });
 
 const playerPaper = document.querySelector("#paper");
 playerPaper.addEventListener("click", () => {
     playerSelection = "paper";
     game = playRound(playerSelection);
-    console.log(game);
-    console.log(game.playerPoints);
     addDiv();
 })
 
 const playerScissors = document.querySelector("#scissors");
 playerScissors.addEventListener("click", () => {
     playerSelection = "scissors";
-    game = playRound(playerSelection);
-    console.log(game);
     addDiv();
 })
 
