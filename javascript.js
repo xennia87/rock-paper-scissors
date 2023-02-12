@@ -1,3 +1,5 @@
+// Generates computer choice
+
 function getComputerChoice() {
     let options = ["rock", "paper", "scissors"];
     let randomIndex = Math.floor(Math.random()*options.length);
@@ -5,53 +7,52 @@ function getComputerChoice() {
     return selection;
 }
 
-let playerSelection = ''
+let playerSelection;
+let secondGame;
+let computerSelection;
+
+function addDiv() {
+    computerSelection = playRound.computerSelection;
+    const container = document.querySelector("#container");
+	const div = document.createElement('div');
+	div.classList.add('content');
+	div.textContent = `Computer chooses ${computerSelection}, you choose ${playerSelection}. Result: ${secondGame}`;
+	container.appendChild(div);
+}
+
+// When user clicks on button
+// Rock
 
 const playerSelectionRock = document.querySelector("#rock");
 playerSelectionRock.addEventListener('click', () => {
 	playerSelection = "rock";
-	let computerSelection = getComputerChoice();
-	let game = playRound(computerSelection, playerSelection);
-	
-	// Añadimos el div
-	const container = document.querySelector("#container");
-	const div = document.createElement('div');
-	div.classList.add('content');
-	div.textContent = `Computer chooses ${computerSelection}, you choose ${playerSelection}. Result: ${game}`;
-	container.appendChild(div);
-	
+	secondGame = playRound(playerSelection);
+    addDiv();
 });
+
+// Paper 
 
 const playerSelectionPaper = document.querySelector("#paper");
 playerSelectionPaper.addEventListener('click', () => {
-	playerSelection = "paper";
-	let computerSelection = getComputerChoice();
-	let game = playRound(computerSelection, playerSelection);
-	
-	// Añadimos el div
-	const container = document.querySelector("#container");
-	const div = document.createElement('div');
-	div.classList.add('content');
-	div.textContent = `Computer chooses ${computerSelection}, you choose ${playerSelection}. Result: ${game}`;
-	container.appendChild(div);
+	let playerSelection = "paper";
+    let secondGame = playRound(playerSelection);
+    addDiv();
 });
+
+// Scissors
 
 const playerSelectionScissors = document.querySelector("#scissors");
 playerSelectionScissors.addEventListener('click', () => {
-	playerSelection = "scissors";
-	let computerSelection = getComputerChoice();
-	let game = playRound(computerSelection, playerSelection);
-	
-	// Añadimos el div
-	const container = document.querySelector("#container");
-	const div = document.createElement('div');
-	div.classList.add('content');
-	div.textContent = `Computer chooses ${computerSelection}, you choose ${playerSelection}. Result: ${game}`;
-	container.appendChild(div);
+	let playerSelection = "scissors";
+    let secondGame = playRound(playerSelection);
+    addDiv();
 });
 
-function playRound(computerSelection, playerSelection) {
+// Game itself
+
+function playRound(playerSelection) {
     let result;
+    let computerSelection = getComputerChoice();
     if (computerSelection === playerSelection) {
         result = "It's a tie, play again";
     } else if (computerSelection == "rock") {
@@ -73,34 +74,24 @@ function playRound(computerSelection, playerSelection) {
             result = "You lose";
         }
     }
-    return result;
+    return { result, computerSelection };
   }
 
-/** function game() {
+function game(playerSel) {
     let playerPoints = 0;
     let computerPoints = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Choose Rock, Paper or Scissors").toLowerCase();
-        computerSelection = getComputerChoice();
-        console.log(`Round ${i + 1}`)
-        console.log(`Computer choses ${computerSelection}`);
-        let result = playRound(computerSelection, playerSelection);
-        if (result > 0) {
-            ++playerPoints;
-            console.log(`Computer has ${computerPoints} points. Player has ${playerPoints}`);
-        } else if (result < 0) {
-            ++computerPoints;
-            console.log(`Computer has ${computerPoints} points. Player has ${playerPoints}`);
+    while (playerPoints < 5 || computerPoints < 5) {
+        console.log(`Round ${i +1}`);
+        console.log(`Computer chooses ${computerSelection}`);
+        let result = playRound(computerSelection, playerSel);
+        if (result == "You win") {
+            playerPoints++;
+        } else if (result == "You lose") {
+            computerPoints++
         } else {
             console.log("It's a tie. Play again")
         }
-    }
 
-    if (computerPoints > playerPoints) {
-        console.log("**Computer wins**");
-    } else {
-        console.log("**Player wins**");
+        return console.log(playerPoints, computerPoints);
     }
 }
-
-game() */
